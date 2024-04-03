@@ -13,8 +13,13 @@ use Laravel\Sanctum\HasApiTokens;
 
 class AuthController extends Controller
 {
+
+
     use HasApiTokens , HttpResponses;
 
+    public function users(){
+        return 'Authenticated user';
+    }
     public function login(LoginRequest $request)
     {
     $validatedData = $request->validate($request->rules());
