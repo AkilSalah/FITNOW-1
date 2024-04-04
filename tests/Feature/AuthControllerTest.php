@@ -26,6 +26,7 @@ class AuthControllerTest extends TestCase
         $response = $this->postJson('/api/register', $userData);
 
         $response->assertStatus(200)
+        
             ->assertJsonStructure([
                 'status',
                 'message',

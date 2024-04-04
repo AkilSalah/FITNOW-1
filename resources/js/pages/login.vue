@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center items-center font-[sans-serif] text-[#333] h-full min-h-screen p-4"
-      style="background-image: url(https://readymadeui.com/background-image.webp); background-repeat: no-repeat; background-size: cover;">
+      style="background-image: url(/images/—Pngtree—dark\ fitness\ room\ with\ training_4839864.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="max-w-md w-full mx-auto">
         <form class="bg-opacity-70 bg-white rounded-2xl p-6 shadow-[0_2px_16px_-3px_rgba(6,81,237,0.3)]">
           <div class="mb-10">
@@ -62,7 +62,7 @@
               Login
             </button>
             <p class="text-sm text-center mt-6">Don't have an account 
-              <router-link to="/Register" class="font-semibold hover:underline ml-1 whitespace-nowrap"> Register here</router-link> </p>
+              <router-link to="/register" class="font-semibold hover:underline ml-1 whitespace-nowrap"> Register here</router-link> </p>
           </div>
           <hr class="my-6 border-gray-500" />
           <div class="space-x-8 flex justify-center">
