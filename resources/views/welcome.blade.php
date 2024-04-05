@@ -24,7 +24,7 @@
     </head>
     <body class="antialiased">
         <div id="app">
-    
+            <example />
         </div>
 
         {{-- <script src="{{ asset('js/app.js') }}"></script> --}}

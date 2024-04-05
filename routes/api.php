@@ -28,6 +28,8 @@ Route::post('/login',[AuthController::class,'login']);
 Route::post('/register',[AuthController::class,'register']);
 Route::get('/users',[AuthController::class,'users']);
 // protected
+// Route::resource('/Progression', ProgressionController::class);
+
 Route::group(['middleware' => ['auth:sanctum']],function(){
 Route::get('/logout',[AuthController::class,'logout']);
 Route::resource('/Progression', ProgressionController::class);
