@@ -26,7 +26,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // public
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/register',[AuthController::class,'register']);
-Route::get('/users',[AuthController::class,'users']);
 // protected
 // Route::resource('/Progression', ProgressionController::class);
 
