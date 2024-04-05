@@ -95,7 +95,7 @@
                 </td>
                 <td class="flex items-center px-6 py-4">
                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
+                    <button @click="deleteProgression(progression.id)" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</button> 
                 </td>
             </tr>
         </tbody>
@@ -118,8 +118,7 @@ export default {
         Hauteur: '',
         PoidsLeve: '',
         TempsDeCourse: ''
-        },
-
+      },
     };
   },
   methods: {
@@ -129,21 +128,37 @@ export default {
         return;
       }
       axios.get('/api/Progression', {
-            headers: {
-            'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(({data}) => {
-            this.progressionData = data.data.progressions; 
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(({data}) => {
+        this.progressionData = data.data.progressions; 
+      })
+      .catch(error => {
+        console.error('Error while fetching progressions:', error);
+      });
+    },
 
+    deleteProgression(id) {
+      if (confirm("Are you sure you want to delete this progression?")) {
+        axios.delete(`/api/Progression/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         })
-        .catch(error => {
-          console.error('Error while fetching progressions:', error);
+        .then(res => {
+          this.getProgression(); 
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Failed to delete progression.");
         });
+      }
     }
   },
   created() {
     this.getProgression(); 
-  }
+  },
 }
 </script>
