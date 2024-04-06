@@ -100,13 +100,13 @@ export default {
   methods: {
     addProgression() {
       const token = localStorage.getItem('token'); 
-
       axios.post('/api/Progression', this.progressionData, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         })
         .then(res => {
+          alert('success , progressopn bien ajouter' );
           console.log(res.data);
           this.progressionData = {
             poids: '',
@@ -116,7 +116,7 @@ export default {
             Hauteur: '',
             PoidsLeve: '',
             TempsDeCourse: '',
-          }
+        }
         }).catch(err => {
           console.error(err.response.data);
         });
