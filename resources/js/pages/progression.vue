@@ -1,15 +1,6 @@
 <template>
-    <header class='shadow-md py-2 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[70px]'>
-    <div class='flex flex-wrap items-center justify-between gap-5 relative'>
-      <a href="javascript:void(0)"><img src="/images/vecteezy_fitness-sport-gym-logo-design_11162122-Photoroom.png-Photoroom.png" alt="logo" class='w-16' />
-      </a>
-      <div class='flex lg:order-1 max-sm:ml-auto'>
-        <button @click=""
-          class='px-4 py-3 text-sm rounded-full font-bold text-red border-2 border-red bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#117bff]'>Logout</button>
-       
-      </div>
-    </div>
-  </header>
+   
+   <navbar />
   <div class="relative bg-gradient-to-r mt-1 from-purple-900 to-black-800 py-16 font-[sans-serif]">
       <div class="absolute inset-0">
         <img src="https://cdn.shopify.com/s/files/1/0297/0366/7845/files/full_planche_trois_doigts_1024x1024.png?v=1612756362" alt="Background Image" class="w-full h-full object-cover opacity-50" />
@@ -17,7 +8,9 @@
       <div class="relative max-w-screen-xl mx-auto px-8 z-10 text-center text-white">
         <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">Welcome to Our Premium Service</h1>
         <p class="text-lg md:text-xl mb-8">Experience excellence like never before with our exclusive products and services.</p>
-        <button type="button" class="bg-indigo-600 hover:bg-indigo-700 text-white text-base font-semibold px-8 py-2.5 rounded-full transition duration-300 ease-in-out shadow-lg hover:shadow-xl">Get Started</button>
+        <router-link to="/home">
+            <button type="button" class="bg-indigo-600 hover:bg-indigo-700 text-white text-base font-semibold px-8 py-2.5 rounded-full transition duration-300 ease-in-out shadow-lg hover:shadow-xl">Ajouter une Progression</button>
+        </router-link>
       </div>
     </div>
 
@@ -166,7 +159,13 @@
                         </div>
                     </div>
                 </div> 
-                <button @click="deleteProgression(progression.id)" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</button> 
+                <button @click="deleteProgression(progression.id)" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</button>
+                 <div v-if="progression.status !== 'terminé'" > 
+                 <button @click="complete(progression)" class="font-medium text-green-600 dark:text-red-500 hover:underline ms-3">Complete</button> 
+                 </div>
+                 <div v-else>
+                  <p class="ms-3">deja terminé</p>
+                 </div>
                 </td>
             </tr>
         </tbody>
@@ -176,8 +175,11 @@
 <script>
 import axios from 'axios';
 const token = localStorage.getItem('token');
-
+import navbar from '../components/Navbar.vue';
 export default {
+  components :{
+    navbar,
+  },
   data() {
     return {
       progressionData: [],
@@ -271,6 +273,21 @@ export default {
         alert("Failed to update progression.");
       });
     },
+
+    complete(progression) {
+  axios.patch(`/api/Progression/${progression.id}/completed`, progression, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }).then(res => {
+    console.log(res.data);
+    this.getProgression();
+  }).catch(err => {
+    console.error(err);
+    alert("Failed to complete progression.");
+  });
+}
+
 
    
   },
